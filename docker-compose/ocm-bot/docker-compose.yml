@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+  xwiki:
+    image: "xwiki:v1"
+    ports:
+      - "80:8080"
+      - "443:8443"
+    environment:
+      - DB_USER=xwiki
+      - DB_PASSWORD=xwiki
+      - DB_DATABASE=xwiki
+      - DB_HOST=db
+    volumes:
+      - xwiki-data:/usr/local/xwiki
+      - ./certbot/ssl/:/usr/local/tomcat/ssl
+      - ./server.xml:/usr/local/tomcat/conf/server.xml
+      - ./web.xml:/usr/local/tomcat/conf/web.xml
+  postgres-xwiki:
+    image: "postgres:v1"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ocm_db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_ROOT_PASSWORD=xwiki 
+      - POSTGRES_USER=xwiki 
+      - POSTGRES_PASSWORD=xwiki
+      - POSTGRES_INITDB_ARGS="--encoding=UTF8"          
+      - POSTGRES_DB=xwiki
+volumes:
+  ocm_db_data: 
+  xwiki-data:
