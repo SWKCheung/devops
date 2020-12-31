@@ -66,12 +66,12 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-	<!-- Define a non-SSL HTTP/1.1 Connector on port 80 -->  
-    <Connector URIEncoding="UTF-8" port="8080" acceptCount="100" enableLookups="false" maxThreads="150" redirectPort="8443" />
+	<!-- Define a non-SSL HTTP/1.1 Connector on port 80 >  
+    <Connector URIEncoding="UTF-8" port="8080" acceptCount="100" enableLookups="false" maxThreads="150" redirectPort="8443" /-->
 	
-    <Connector port="8080" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="8443" />
+    <Connector port="8080" protocol="HTTP/1.1" URIEncoding="UTF-8"
+               connectionTimeout="20000" acceptCount="100" enableLookups="false" maxThreads="150" 
+               redirectPort="443" />
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -102,7 +102,7 @@
          Either JSSE or OpenSSL style configuration may be used. OpenSSL style
          configuration is used below.
     -->
-    <Connector port="8443" protocol="org.apache.coyote.http11.Http11AprProtocol"
+    <Connector port="443" protocol="org.apache.coyote.http11.Http11AprProtocol"
                maxThreads="150" SSLEnabled="true" >
         <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
         <SSLHostConfig>
